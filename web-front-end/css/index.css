@@ -1,0 +1,38 @@
+
+.card {
+	display: inline-block;
+	padding: 5px;
+	border: 1px solid;
+	margin-right: 5px;
+	width: 31px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.card.Spades, .card.Clubs {
+	color: #000;
+}
+
+.card.Hearts, .card.Diamonds {
+	color: red;
+}
+
+.card.Spades::after {
+	content: " ♠";	
+}
+
+.card.Clubs::after {
+	content: " ♣";	
+}
+
+.card.Hearts::after {
+	content: " ♥";
+}
+
+.card.Diamonds::after {
+	content: " ♦";
+}
+
+.card::after {
+	display: block;
+}

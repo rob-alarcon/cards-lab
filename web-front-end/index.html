@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cards Lab</title>
+
+    <!-- Bootstrap -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>Cards Lab</h1>
+
+    <button id="js-get-deck">Reset Deck</button>
+    <button id="js-shuffle">Shuffle</button>
+
+    <h3>Deck information</h3>
+
+    <div id="js-deck-information-container">
+
+    </div>
+
+    <h3>Deck Visual Representation</h3>
+
+    <div id="js-deck-canvas-container"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <!-- Include the react.js files for the View test -->
+    <script src="vendor/react/react.js"></script>
+    <script src="vendor/react/JSXTransformer.js"></script>
+   
+
+    <script type="text/javascript" src="../js/model/card.js"></script>
+    <script type="text/javascript" src="../js/model/Deck.js"></script>
+
+    <!-- Please put special attention to the type of the following reference this tells to the react.js JSXT Transformer that it must compile the file to POJO -->
+    <script type="text/javascript" src="js/views/cardsInformationView.js"></script>
+    <script type="text/javascript" src="js/views/DeckCanvasView.js"></script>
+
+    <script type="text/javascript" src="../js/presenter/cardsPresenter.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+        index.init();
+      });
+    </script>
+  </body>
+</html>
