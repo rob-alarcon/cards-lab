@@ -152,19 +152,25 @@
 	"buffers":
 	[
 		{
+			"contents": "",
 			"file": "/Users/robalarcon/Documents/labs/js/model/card.js",
+			"file_size": -1,
+			"file_write_time": -1,
 			"settings":
 			{
-				"buffer_size": 131,
-				"line_ending": "Unix"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
+			"contents": "",
 			"file": "/Users/robalarcon/Documents/labs/js/model/Deck.js",
+			"file_size": -1,
+			"file_write_time": -1,
 			"settings":
 			{
-				"buffer_size": 798,
-				"line_ending": "Unix"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -504,15 +510,15 @@
 					"file": "/Users/robalarcon/Documents/labs/js/model/card.js",
 					"settings":
 					{
-						"buffer_size": 131,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								125,
-								125
+								0,
+								0
 							]
 						],
 						"settings":
@@ -530,14 +536,14 @@
 					"file": "/Users/robalarcon/Documents/labs/js/model/Deck.js",
 					"settings":
 					{
-						"buffer_size": 798,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								124,
+								0,
 								0
 							]
 						],
