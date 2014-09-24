@@ -47,7 +47,7 @@ var Deck = function() {
 
 	// Routine to initialize the Deck
 	for(var i = 0; i < _suits.length; i++)
-	{	console.log(_suits[i])
+	{	
 		var suit = _suits[i];
 		_buildDeckBySuit(suit);
 	}

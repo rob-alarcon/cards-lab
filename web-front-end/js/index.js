@@ -22,8 +22,6 @@ var index = (function($, CardsPresenter) {
 
 
 	var __handleDeckShuffled = function() {
-
-		console.log(_cardsPresenter)
 		_cardsPresenter.shuffle();
 	};
 

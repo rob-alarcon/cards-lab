@@ -14,8 +14,6 @@ CardsPresenter.prototype.getNewDeck = function() {
 	this.deck = new Deck();
 
 
-	console.log(this.deck)
-
 	$(document).trigger('DeckReset', [this.deck]);
 };
 
@@ -23,12 +21,9 @@ CardsPresenter.prototype.shuffle = function() {
 	
 	var deck = this.deck.deck;
 
-	console.log('shuffle')
-	console.log(deck)
-
 	for (var i = 0; i < deck.length; i++) {
 		var randomIndex = Math.abs(Math.floor(Math.random() * 41)); //  a number between 0 and 41
-		console.log(randomIndex)
+		
 		// Swap 
 		var current = deck[i];
 		deck[i] = deck[randomIndex];
