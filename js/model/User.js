@@ -2,7 +2,7 @@
 * This is the model for a Player
 *
 **/
-var Card = function(name) {
+var User = function(name) {
 	
 	/**
 	* Holds the nickname of the user
@@ -19,6 +19,6 @@ var Card = function(name) {
 * This is the model for a Player
 *
 **/
-Card.prototype.fillUserDeck = function() {
+User.prototype.fillUserDeck = function() {
 
 };

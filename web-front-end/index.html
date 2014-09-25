@@ -21,8 +21,9 @@
   <body>
     <h1>Cards Lab</h1>
 
-    <button id="js-get-deck">Reset Deck</button>
-    <button id="js-shuffle">Shuffle</button>
+    <button id="js-get-deck" class="btn btn-sm btn-primary">RESET</button>
+    <button id="js-shuffle" class="btn btn-sm btn-primary">SHUFFLE</button>
+    <button id="js-add-user" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#js-user-modal">ADD USER (MAX 4)</button>
 
     <h3>Deck information</h3>
 
@@ -37,22 +38,22 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-
-    <!-- Include the react.js files for the View test -->
-    <script src="vendor/react/react.js"></script>
-    <script src="vendor/react/JSXTransformer.js"></script>
-   
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>   
 
     <script type="text/javascript" src="../js/model/card.js"></script>
     <script type="text/javascript" src="../js/model/Deck.js"></script>
+    <script type="text/javascript" src="../js/model/User.js"></script>
 
     <!-- Please put special attention to the type of the following reference this tells to the react.js JSXT Transformer that it must compile the file to POJO -->
     <script type="text/javascript" src="js/views/cardsInformationView.js"></script>
     <script type="text/javascript" src="js/views/DeckCanvasView.js"></script>
+    <script type="text/javascript" src="js/views/UserView.js"></script>
+
+    <!-- Load repositories -->
+    <script type="text/javascript" src="../js/repository/usersRepository.js"></script>    
 
     <script type="text/javascript" src="../js/presenter/cardsPresenter.js"></script>
+    <script type="text/javascript" src="../js/presenter/UsersPresenter.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 
     <script type="text/javascript">
@@ -60,5 +61,31 @@
         index.init();
       });
     </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="js-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add User to Table</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="js-username" class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="js-username" placeholder="Username">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="js-save-user">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
