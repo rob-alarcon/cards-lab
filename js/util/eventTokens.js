@@ -5,5 +5,6 @@ if (this['rob'] === undefined) {
 }
 
 rob.eventTokens = {
-	userAdded: "rob.userAdded"
+	userAdded: "rob.userAdded",
+	userHitMe: "rob.hitMe"
 };

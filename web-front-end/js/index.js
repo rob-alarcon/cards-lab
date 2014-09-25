@@ -4,7 +4,7 @@
 * 
 *
 **/
-var index = (function($, CardsPresenter) {
+var index = (function($, CardsPresenter, eventTokens) {
 
 	var _cardsPresenter;
 
@@ -48,6 +48,9 @@ var index = (function($, CardsPresenter) {
 	**/
 	var __handleSaveUser = function() {
 
+		// [FIXME]
+		var userView = new UserView(document.getElementById('users-container'));
+
 		// Get the username directly from a jQuery object.
 		var username = $("#js-username").val();
 
@@ -55,11 +58,11 @@ var index = (function($, CardsPresenter) {
 		// object as the presenter does not have to know about the UI controls
 		_usersPresenter.saveUser(username);
 
-		// [FIXME]
-		new UserView();
-
 		// Reset the username control
 		$("#js-username").val("");
+
+		// Hide the modal
+		$("#js-user-modal").modal("hide");
 	};
 
 	return {
@@ -87,7 +90,11 @@ var index = (function($, CardsPresenter) {
 			// Retrieve inital deck of cards
 			_cardsPresenter.getNewDeck();
 
+
+			// DEMO
+			PubSub.subscribe(eventTokens.userHitMe, function(token, e) { console.log(e); });
+
 		}
 	};
-})($, CardsPresenter);
+})($, CardsPresenter, rob.eventTokens);
 

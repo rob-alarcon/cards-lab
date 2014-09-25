@@ -26,7 +26,7 @@ var DeckCanvasView = (function() {
 
 		var b_canvas = document.getElementsByTagName("canvas")[0];
 		b_canvas.width = cards.length * 25;
-		b_canvas.height = (cards.length / 3) * 50	;
+		b_canvas.height = (cards.length / 3) * 8;
 		b_canvas.font = "12px sans-serif";
 		  var b_context = b_canvas.getContext("2d");
 		  // b_context.fillRect(50, 25, 150, 100);
