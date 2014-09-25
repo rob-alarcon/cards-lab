@@ -5,8 +5,12 @@
 * Presenter is an object that serves as a mediator between the model 
 * and a consumir (goal is to be consumer agnostic)
 *
+* @param eventTokens object simple map of custom event tokens to be used with PubSub
+* @param usersRepository object repository of Users (fake right know)
+* @param PubSub object Mediatior object library.
+*
 **/
-var UsersPresenter = (function(usersRepository) {
+var UsersPresenter = (function(eventTokens, usersRepository, PubSub) {
 
 	// Hold a closure of the presenter.
 	var _that;
@@ -40,10 +44,9 @@ var UsersPresenter = (function(usersRepository) {
 			_activeUsers.push(user);
 
 			// create and dispatch the event informing that a new user has been created and it's active
-			var event = new CustomEvent("rob.userAdded", { "user": user });
-			_that.dispatchEvent(event);
+			PubSub.publish(eventTokens.userAdded, { "user": user });
 		}
 	};
 
 	return UsersPresenter;
-})(usersRepository);
+})(rob.eventTokens, usersRepository, PubSub);

@@ -1,7 +1,7 @@
 
 
 // UserView is a inmediate executed function that returns a constructor for UserView
-var UserView = (function() {
+var UserView = (function(eventTokens, PubSub) {
 
 	// Hold a closure to the View object
 	var _that;
@@ -10,7 +10,7 @@ var UserView = (function() {
 	var _bind = function() {
 		
 		// add an appropriate event listener
-		_that.addEventListener("rob.userAdded", function(e) { __handleUserAdded(e.user) });
+		PubSub.subscribe(eventTokens.userAdded, function(token, e) { console.log(e); __handleUserAdded(e.user); });
 	};
 
 
@@ -34,12 +34,6 @@ var UserView = (function() {
 
 		_bind();
 
-		// Register Event Listenets
-		$(document).on('cardsShuffled', __handleCardsShuffled);
-		$(document).on('DeckReset', __handleDeckReset);
-
-		_that.el.appendChild(_that.canvas)
-
 	};
 
 	UserView.prototype.render = function() {
@@ -49,5 +43,5 @@ var UserView = (function() {
 	// Important
 	// Return the constructor as the only exposed object 
 	return UserView;	
-})();
+})(rob.eventTokens, PubSub);
 

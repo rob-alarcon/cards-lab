@@ -51,13 +51,9 @@ var index = (function($, CardsPresenter) {
 		// Get the username directly from a jQuery object.
 		var username = $("#js-username").val();
 
-		var userConfiguration = {
-			name: username
-		};
-
 		// Call the save User on the users presenter sending just a configuration
 		// object as the presenter does not have to know about the UI controls
-		_usersPresenter.saveUser(userConfiguration);
+		_usersPresenter.saveUser(username);
 
 		// [FIXME]
 		new UserView();
