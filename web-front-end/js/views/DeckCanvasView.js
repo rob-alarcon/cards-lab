@@ -2,21 +2,24 @@
 
 // DeckCancvasView is a inmediate executed function that returns a constructor for DeckCanvasView
 var DeckCanvasView = (function() {
+
+	var _that 
+
 	var __handleCardsShuffled = function(a, b) {
 		_displayDeckCanvas(b.deck);
-
 	};
 
 	var __handleDeckReset = function(a, b) {
 		_displayDeckCanvas(b.deck);
-
 	};
 
+	var __handleCardServed = function( token, deck ) {
+		_displayDeckCanvas(deck.deck);
+	}
+
 	var _displayDeckCanvas = function(cards) {
-		// simulate argument cards
-		// var cards = b.deck;
-
-
+		
+		// Four possible card suits
 		var suits = {
 			"Diamonds": "♦",
 			"Hearts": "♥",
@@ -24,15 +27,14 @@ var DeckCanvasView = (function() {
 			"Clubs": "♣"
 		};
 
+		var originalCardsLength = 52;
+
 		var b_canvas = document.getElementsByTagName("canvas")[0];
-		b_canvas.width = cards.length * 25;
-		b_canvas.height = (cards.length / 3) * 8;
+		b_canvas.width = originalCardsLength * 25;
+		b_canvas.height = (originalCardsLength / 3) * 8;
 		b_canvas.font = "12px sans-serif";
 		  var b_context = b_canvas.getContext("2d");
-		  // b_context.fillRect(50, 25, 150, 100);
-
-
-		  
+		  	  
 
 		  var xPosition = 5;
 		  var yPosition = 5;
@@ -59,7 +61,6 @@ var DeckCanvasView = (function() {
 			b_context.fillText(cards[i].value + " " + suits[cards[i].suit], xPosition + 5, yPosition + 25);
 			
 			xPosition += 35;
-			//yPosition += 10;
 			if ( (xPosition + 43) > window.screen.width - 200) { // a hard coded value just for testing purposes
 				xPosition = 5;
 				yPosition += 70;
@@ -69,13 +70,9 @@ var DeckCanvasView = (function() {
 		};
 	}
 
-
-
-	var global;
-		
 	var DeckCanvasView = function(containerElement) {
 			
-		var _that = this;
+		_that = this;
 
 		/**
 		* DOM element that serves as a container for the View
@@ -85,13 +82,16 @@ var DeckCanvasView = (function() {
 
 		_that.canvas = document.createElement('canvas');
 
+		_that.canvas.style.width = "1120px";
+
 		// Register Event Listenets
 		$(document).on('cardsShuffled', __handleCardsShuffled);
 		$(document).on('DeckReset', __handleDeckReset);
 
-		global = _that;
-
 		_that.el.appendChild(_that.canvas)
+
+		// Trigger an event to the Cards Views
+		PubSub.subscribe(eventTokens.cardServed, __handleCardServed);
 
 	};
 

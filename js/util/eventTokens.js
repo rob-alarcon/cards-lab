@@ -6,5 +6,7 @@ if (this['rob'] === undefined) {
 
 rob.eventTokens = {
 	userAdded: "rob.userAdded",
-	userHitMe: "rob.hitMe"
+	userHitMe: "rob.hitMe",
+	serveOne: "rob.serveOne",
+	cardServed: "rob.cardServed"
 };

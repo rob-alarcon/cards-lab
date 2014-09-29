@@ -24,29 +24,47 @@
 
     <button id="js-get-deck" class="btn btn-sm btn-primary">RESET</button>
     <button id="js-shuffle" class="btn btn-sm btn-primary">SHUFFLE</button>
-    <button id="js-add-user" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#js-user-modal">ADD USER (MAX 4)</button>
 
-    <h3>Deck information</h3>
+    <div class="row">
+      <div class="col-sm-9">
+        
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Deck information (DOM)</h3>
 
-    <div id="js-deck-information-container">
+            <div id="js-deck-information-container" class="deck">
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <h3>Deck Visual Representation (CANVAS)</h3>
+
+            <div id="js-deck-canvas-container" class="deck"></div>
+
+          </div>
+        </div>
+
+      </div> <!-- .col-sm-9 -->
+
+      <div class="col-sm-3">
+        <h2>Users <button id="js-add-user" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#js-user-modal"><i class="fa fa-plus"></i> ADD USER (MAX 4)</button></h2>
+
+        <div id="users-container" class="row"></div>
+      </div> <!-- .col-sm-3 -->
+
 
     </div>
-
-    <h3>Deck Visual Representation</h3>
-
-    <div id="js-deck-canvas-container"></div>
-
-    <hr>
-
-    <h2>Users</h2>
-
-    <div id="users-container" class="row"></div>
 
     <!-- IMPORTANT GLOBAL DEPENDENCIES SHARED ACROSS MODULES -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="../vendor/pubsubjs/pubsub.js"></script>
+    <script type="text/javascript" src="../vendor/underscorejs/underscore.js"></script>
 
     <!-- eventTokens -->
     <script type="text/javascript" src="../js/util/eventTokens.js"></script>    

@@ -14,6 +14,10 @@ var CardsInformationView = (function() {
 
 	};
 
+	var __handleCardServed = function( token, deck ) {
+		_displayDeck(deck.deck);
+	}
+
 	var _displayDeck = function(cards) {
 
 		var div = $("#js-deck-information-container");
@@ -37,6 +41,9 @@ var CardsInformationView = (function() {
 
 		$(document).on('cardsShuffled', __handleCardsShuffled);
 		$(document).on('DeckReset', __handleDeckReset);
+
+		// Trigger an event to the Cards Views
+		PubSub.subscribe(eventTokens.cardServed, __handleCardServed);
 
 	};
 

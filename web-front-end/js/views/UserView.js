@@ -8,40 +8,69 @@ var UserView = (function(eventTokens, PubSub) {
 
 	var _token;
 
+	// Holds the user nickname to be saved this is a little hack that I have to use right now 
+	// for this lab because I didn't think very well about how the view should be rendered.
+	var _dirtyUserName;
+
 	// Bind event handlers 
 	var _bind = function() {
 		
 		// add an appropriate event listener
 
-		_token = PubSub.subscribe(eventTokens.userAdded, function(token, e) { __handleUserAdded(e.user); });
+		_token = PubSub.subscribe( _dirtyUserName + '__' + eventTokens.userAdded, __handleUserAdded );
 	};
 
 	var _bindHitMeClick = function(el) {
 
-		var button = $("." + el).find('.js-hit-me');
 
-		$(button).on('click', function(event){
-			PubSub.publish(eventTokens.userHitMe, "hitme");
-		});
 
 	};
 
-	var __handleUserAdded = function(user) {
+	var __handleUserAdded = function( token, e ) {
+
+		var user = e.user;
 
 		// if there's a user we set a reference to the view and call the render method.
 		if (user) {
 			_that.user = user;
 
+			// The subscribe token will be modified with username + token
+			var userServedToken = _that.user.name + '__' + eventTokens.serveOne;
+			PubSub.subscribe( userServedToken, __handleUserModified );
+
 			_that.render();
 
 			// Unsubscribe token
 			PubSub.unsubscribe( _token );
+
+			var button = $(".user-view-" + _that.user.name).find('.js-hit-me');
+			var userHitMeToken = _that.user.name + '__' + eventTokens.userHitMe;
+			var u = _that.user;
+
+			$(document).on('click', ".user-view-" + _that.user.name + ' .js-hit-me', function(event) {
+
+				PubSub.publish( userHitMeToken, u );
+			});
 		}
-	}
+	};
+
+	var __handleUserModified = function( token, modifiedUser ) { 
+
+		// Update UserView hard copy of the user
+		_that.user = modifiedUser;
+
+		// [SHAME ON YOU]
+		// rerender of the view
+		_that.render(); 
+	};
 		
-	var UserView = function(containerElement) {
+	// [FIXME] delete dirtyUserName
+	var UserView = function( containerElement, dirtyUserName ) {
 
 		_that = this;
+
+
+		_dirtyUserName = dirtyUserName;
 
 		/** 
 		* Will hold a reference to the user
@@ -61,10 +90,21 @@ var UserView = (function(eventTokens, PubSub) {
 
 	UserView.prototype.render = function() {
 
+
 		// Render user if available
 		if (this.user) {
 
-			var newUserView = $("<div class='cols-sm-3 user-view-" + this.user.name + "'></div>")
+			var isNew = false;
+
+			var userViewContainer = $(".user-view-" + this.user.name);
+
+			// Check if the placeholder for the user view already exists
+			if (!userViewContainer.length) {
+
+				isNew = true;
+				// if there's no container we create one on the fly
+				userViewContainer = $("<div class='col-sm-12 user-view-" + this.user.name + "'></div>");
+			}
 
 			// list item of cards
 			var cardsDOM = "";
@@ -73,25 +113,38 @@ var UserView = (function(eventTokens, PubSub) {
 				cardsDOM += '<li class="card ' + this.user.cards[i].suit + '">' + this.user.cards[i].value + '</li>';
 			};
 
-			var template = '<h4> <i class="fa fa-user">' + this.user.name + 
-							'<button type="button" class="btn btn-sm btn-warning pull-right js-hit-me" >HIT ME!</button>' +
+			if (isNew) {
+
+				var template = '<h4> <i class="fa fa-user"></i> ' + this.user.name + 
+							'<button type="button" class="btn btn-xs btn-warning pull-right js-hit-me" >HIT ME!</button>' +
 							'</h4>';
 
-			if (this.user.length) {
-				template += '<h5 class="cards">Cards</h5>' + 
-							'<ul>' +
-							cardsDOM +
-							'</ul>';
+				if (this.user.cards.length) {
+					template += '<h5 class="cards">Cards</h5>' + 
+								'<ul>' +
+								cardsDOM +
+								'</ul>';
+				}
+
+				userViewContainer.append(
+					template
+				);
+
+				// Append the new user to the User Views container.
+				userViewContainer.appendTo(_that.el);
+
+				_bindHitMeClick("user-view-" + this.user.name);
+			} else { // Just rerender the cards
+				if( userViewContainer.find('ul').length) {
+					userViewContainer.find('ul').empty().append(cardsDOM);	
+				}else {
+					userViewContainer.append('<h5 class="cards">Cards</h5>' + 
+								'<ul>' +
+								cardsDOM +
+								'</ul>');
+				}
+
 			}
-
-			newUserView.append(
-				template
-			);
-
-			// Append the new user to the User Views container.
-			newUserView.appendTo(_that.el);
-
-			_bindHitMeClick("user-view-" + this.user.name);
 		}
 	};
 

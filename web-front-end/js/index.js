@@ -29,6 +29,13 @@ var index = (function($, CardsPresenter, eventTokens) {
 		$("#js-save-user").click(__handleSaveUser);
 	};
 
+	var __handleUserHit = function(token, user) { 
+		
+		var card = _cardsPresenter.serveOne();
+
+		// Update user model with the Card
+		_usersPresenter.hitUserWithCard(user, card);
+	};
 
 	var __handleDeckShuffled = function() {
 		_cardsPresenter.shuffle();
@@ -48,15 +55,22 @@ var index = (function($, CardsPresenter, eventTokens) {
 	**/
 	var __handleSaveUser = function() {
 
-		// [FIXME]
-		var userView = new UserView(document.getElementById('users-container'));
-
 		// Get the username directly from a jQuery object.
 		var username = $("#js-username").val();
 
+		// [FIXME] we should append the html of the view to a container right now the 
+		// view is attaching itself. 
+		var userView = new UserView(document.getElementById('users-container'), username);
+
+		_appUsers.push(userView);
+		
 		// Call the save User on the users presenter sending just a configuration
 		// object as the presenter does not have to know about the UI controls
 		_usersPresenter.saveUser(username);
+
+		var userHitMeToken = username + '__' + eventTokens.userHitMe;
+		// Bind the event when the user get a new Card
+		PubSub.subscribe( userHitMeToken, __handleUserHit );
 
 		// Reset the username control
 		$("#js-username").val("");
@@ -89,10 +103,6 @@ var index = (function($, CardsPresenter, eventTokens) {
 
 			// Retrieve inital deck of cards
 			_cardsPresenter.getNewDeck();
-
-
-			// DEMO
-			PubSub.subscribe(eventTokens.userHitMe, function(token, e) { console.log(e); });
 
 		}
 	};

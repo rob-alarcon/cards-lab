@@ -18,10 +18,15 @@ var UsersPresenter = (function(eventTokens, usersRepository, PubSub) {
 	// Array of active users on the session
 	var _activeUsers = [];
 
-	// var _usersRepository = cards.userRepository;
+	var _bind = function() {
+		
+			
+	};	
 
 	var UsersPresenter = function(usersReposit) {
 		_that = this;
+
+		_bind();
 	};
 
 
@@ -44,8 +49,27 @@ var UsersPresenter = (function(eventTokens, usersRepository, PubSub) {
 			_activeUsers.push(user);
 
 			// create and dispatch the event informing that a new user has been created and it's active
-			PubSub.publish(eventTokens.userAdded, { "user": user });
+			PubSub.publish( username + '__' + eventTokens.userAdded, { "user": user });
 		}
+	};
+
+	UsersPresenter.prototype.hitUserWithCard = function(user, card) {
+
+
+		// Get user form the active user list
+		var modifiedUser = _.find(_activeUsers, function( u ) {
+			return u.name = user.name;
+		});
+
+		modifiedUser.cards.push(card);
+
+		// Publish to the user view the updated user
+		// [TODO] right now this uses a Backbone like whole object re-render
+		// this should be a more handy and explicit two way data-binding ala ko or angular
+		// The subscribe token will be modified with username + token
+		var userServedToken = modifiedUser.name + '__' + eventTokens.serveOne;
+
+		PubSub.publish(userServedToken, modifiedUser);
 	};
 
 	return UsersPresenter;

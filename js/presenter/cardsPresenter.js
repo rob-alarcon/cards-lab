@@ -1,3 +1,5 @@
+eventTokens = rob.eventTokens;
+
 /**
 *
 * Presenter is an object that serves as a mediator between the model 
@@ -22,7 +24,7 @@ CardsPresenter.prototype.shuffle = function() {
 	var deck = this.deck.deck;
 
 	for (var i = 0; i < deck.length; i++) {
-		var randomIndex = Math.abs(Math.floor(Math.random() * 41)); //  a number between 0 and 41
+		var randomIndex = Math.abs(Math.floor(Math.random() * deck.length)); //  a number between 0 and 41
 		
 		// Swap 
 		var current = deck[i];
@@ -33,6 +35,16 @@ CardsPresenter.prototype.shuffle = function() {
 
 	this.deck.deck = deck;
 
-
 	$(document).trigger('cardsShuffled', [this.deck]);
+};
+
+
+CardsPresenter.prototype.serveOne = function() {
+	
+	var popedCard = this.deck.deck.pop();
+
+	// Trigger an event to the Cards Views
+	PubSub.publish(eventTokens.cardServed, this.deck );
+
+	return popedCard;
 };
