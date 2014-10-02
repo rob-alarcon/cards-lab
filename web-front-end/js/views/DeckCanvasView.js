@@ -1,22 +1,38 @@
 
+/**
+* DeckCancvasView is a inmediate executed function that returns a constructor for DeckCanvasView
+*/
+var DeckCanvasView = (function(eventTokens, PubSub) {
 
-// DeckCancvasView is a inmediate executed function that returns a constructor for DeckCanvasView
-var DeckCanvasView = (function() {
+	/**
+	* Holds a closure of this
+	*/
+	var _that;
 
-	var _that 
-
+	/**
+	* Handles the event of "deck" shuffled
+	*/
 	var __handleCardsShuffled = function(a, b) {
 		_displayDeckCanvas(b.deck);
 	};
 
+	/**
+	* Handles the event of "deck" reseted
+	*/
 	var __handleDeckReset = function(a, b) {
 		_displayDeckCanvas(b.deck);
 	};
 
+	/**
+	* Handles the event of card served.
+	*/
 	var __handleCardServed = function( token, deck ) {
 		_displayDeckCanvas(deck.deck);
-	}
+	};
 
+	/**
+	* Simple stub that renders the deck using HTML5 Canvas.
+	*/
 	var _displayDeckCanvas = function(cards) {
 		
 		// Four possible card suits
@@ -70,6 +86,10 @@ var DeckCanvasView = (function() {
 		};
 	}
 
+	/**
+	* View Constructor.
+	* @constructor
+	*/
 	var DeckCanvasView = function(containerElement) {
 			
 		_that = this;
@@ -95,19 +115,8 @@ var DeckCanvasView = (function() {
 
 	};
 
-	DeckCanvasView.prototype.displayDeck = function(cards) {
-
-		var div = $("#js-deck-information-container");
-
-		div.empty();
-
-		for (var i = cards.length - 1; i >= 0; i--) {
-			div.append('<div class="card ' + cards[i].suit + '">' + cards[i].value + '</div>');
-		};
-	};
-
 	// Important
 	// Return the constructor as the only exposed object 
 	return DeckCanvasView;	
-})();
+})(rob.eventTokens, PubSub);
 

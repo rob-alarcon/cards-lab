@@ -1,31 +1,35 @@
 
-
-// UserView is a inmediate executed function that returns a constructor for UserView
+/**
+* UserView is a inmediate executed function that returns a constructor for UserView
+*/
 var UserView = (function(eventTokens, PubSub) {
 
 	// Hold a closure to the View object
 	var _that;
 
+	/**
+	* Holds a reference to the token for when the user is added.
+	*/
 	var _token;
 
-	// Holds the user nickname to be saved this is a little hack that I have to use right now 
-	// for this lab because I didn't think very well about how the view should be rendered.
+	/**
+	* Holds the user nickname to be saved this is a little hack that I have to use right now 
+	* for this lab because I didn't think very well about how the view should be rendered.
+	*/
 	var _dirtyUserName;
 
-	// Bind event handlers 
+	/**
+	* Bind event handlers 
+	*/
 	var _bind = function() {
 		
 		// add an appropriate event listener
-
 		_token = PubSub.subscribe( _dirtyUserName + '__' + eventTokens.userAdded, __handleUserAdded );
 	};
 
-	var _bindHitMeClick = function(el) {
-
-
-
-	};
-
+	/**
+	* View Constructor.
+	*/
 	var __handleUserAdded = function( token, e ) {
 
 		var user = e.user;
@@ -54,6 +58,9 @@ var UserView = (function(eventTokens, PubSub) {
 		}
 	};
 
+	/**
+	* Handles the event of when a user has been modified.
+	*/
 	var __handleUserModified = function( token, modifiedUser ) { 
 
 		// Update UserView hard copy of the user
@@ -63,8 +70,12 @@ var UserView = (function(eventTokens, PubSub) {
 		// rerender of the view
 		_that.render(); 
 	};
-		
-	// [FIXME] delete dirtyUserName
+	
+	/**
+	* View Constructor.
+	* @constructor
+	* [FIXME] delete dirtyUserName
+	*/
 	var UserView = function( containerElement, dirtyUserName ) {
 
 		_that = this;
@@ -88,6 +99,9 @@ var UserView = (function(eventTokens, PubSub) {
 
 	};
 
+	/**
+	* Render the view into the specified container.
+	*/
 	UserView.prototype.render = function() {
 
 
@@ -133,7 +147,6 @@ var UserView = (function(eventTokens, PubSub) {
 				// Append the new user to the User Views container.
 				userViewContainer.appendTo(_that.el);
 
-				_bindHitMeClick("user-view-" + this.user.name);
 			} else { // Just rerender the cards
 				if( userViewContainer.find('ul').length) {
 					userViewContainer.find('ul').empty().append(cardsDOM);	
@@ -151,5 +164,6 @@ var UserView = (function(eventTokens, PubSub) {
 	// Important
 	// Return the constructor as the only exposed object 
 	return UserView;	
+	
 })( rob.eventTokens, PubSub);
 
